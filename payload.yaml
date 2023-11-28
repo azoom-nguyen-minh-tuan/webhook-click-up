@@ -1,0 +1,135 @@
+payload: 
+  id:
+    type: string
+    description: The unique identifier for a task.
+    example: "862kkye8y"
+  status:
+    type: 
+      $ref: '#/components/schemas/Status'
+    description: The status of the task.
+  parent:
+    type: string
+    description: The unique identifier for the parent task. If not null, it's subtask.
+    example: "862kkye8y"
+  url:
+    type: string
+    description: The url of the task.
+    example: "https://app.clickup.com/t/862kkydna"
+
+  #location
+  space:
+    type: object
+    description: The space of the task.
+    properties:
+      id:
+        type: string
+        description: The unique identifier for the space.
+        example: "862kkye8y"
+  folder:
+    type: object
+    description: The folder of the task.
+    properties:
+      id:
+        type: string
+        description: The unique identifier for the folder.
+        example: "862kkye8y"
+      name:
+        type: string
+        description: The name of the folder.
+        example: "Folder 1"
+  list:
+    type: object
+    description: The list of the task.
+    properties:
+      id:
+        type: string
+        description: The unique identifier for the list.
+        example: "862kkye8y"
+      name:
+        type: string
+        description: The name of the list.
+        example: "List 1"
+
+  #Timestamps
+  date_created:
+    type: integer
+    description: The date and time the task was created.
+    example: 1491406444
+  date_updated:
+    type: integer
+    description: The date and time the task was last updated.
+    example: 1491406444
+  date_closed:
+    type: integer
+    description: The date and time the task was closed.
+    example: 1491406444
+  date_done:
+    type: integer
+    description: The date and time the task was completed.
+    example: 1491406444
+  due_date:
+    type: integer
+    description: The date and time the task is due.
+    example: 1491406444
+  start_date:
+    type: integer
+    description: The date and time the task is started.
+    example: 1491406444
+  time_estimate:
+    type: integer
+    description: The time estimate for the task in miniseconds.
+    example: 57600000
+
+  #Related humans
+  creator:
+    type:
+      $ref: '#/components/schemas/User'
+    description: The user who created the task.
+  assignees:
+    type: array
+    description: The users assigned to the task.
+    items:
+      $ref: '#/components/schemas/User'
+  watchers:
+    type: array
+    description: The users watching the task.
+    items:
+      $ref: '#/components/schemas/User'
+
+
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the task.
+          example: "Open"
+        color:
+          type: string
+          description: The color of the status.
+          example: "#3D5AFE"
+        orderindex:
+          type: integer
+          description: The order index of the status.
+          example: 0
+        type:
+          type: string
+          description: The type of the status.
+          example: "Open"
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the user.
+          example: 862kkye8y
+        username:
+          type: string
+          description: The name of the user.
+          example: "Nguyễn Minh Tuấn (Only Sekai)"
+        email:
+          type: string
+          description: The email address of the user.
+          example: "abc@excample.com"
