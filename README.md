@@ -1,6 +1,24 @@
-Url 
+# Url deployed
 - automation webhook https://us-central1-azoom-n-d-phong.cloudfunctions.net/ClickUpTaskAutomationWebhook
 - manual webhook https://us-central1-azoom-n-d-phong.cloudfunctions.net/ClickUpTaskManualWebhook
+# Source structure
+- functions: source code
+  - index.ts: function in cloud
+    - ClickUpTaskAutomationWebhook: function for automation webhook
+    - ClickUpTaskManualWebhook: function for manual webhook
+  - endpoint.ts: endpoint's click up. Use to call api
+  - dto: type of application
+    - request: type of incoming request to cloud function
+    - response: type of response' cloud function
+  - constants.ts: constants of application
+  - utils.ts: some until of application
+
+# How it work
+## 1. Automation webhook
+![Automation Webhook](./md/activityDiagram/automationWebhook.png)
+## 2. Manual webhook 
+![Automation Webhook](./md/activityDiagram/manualWebhook.png)
+
 # Prepare for Deploy
   1. Create file `.env` from `.env.sample`
   2. Replace `AUTH_TOKEN` by your token
