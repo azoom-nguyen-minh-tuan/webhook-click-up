@@ -1,3 +1,6 @@
+Url 
+- automation webhook https://us-central1-azoom-n-d-phong.cloudfunctions.net/ClickUpTaskAutomationWebhook
+- manual webhook https://us-central1-azoom-n-d-phong.cloudfunctions.net/ClickUpTaskManualWebhook
 # Prepare for Deploy
   1. Create file `.env` from `.env.sample`
   2. Replace `AUTH_TOKEN` by your token
