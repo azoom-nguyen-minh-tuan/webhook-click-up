@@ -3,15 +3,15 @@
 - manual webhook https://us-central1-azoom-n-d-phong.cloudfunctions.net/ClickUpTaskManualWebhook
 # Source structure
 - functions: source code
-  - index.ts: function in cloud
+  - index.ts: functions in cloud
     - ClickUpTaskAutomationWebhook: function for automation webhook
     - ClickUpTaskManualWebhook: function for manual webhook
-  - endpoint.ts: endpoint's click up. Use to call api
+  - endpoint.ts: endpoint's click up. It use to call api
   - dto: type of application
-    - request: type of incoming request to cloud function
-    - response: type of response' cloud function
+    - request: types of incoming request to cloud function
+    - response: types of response's cloud function
   - constants.ts: constants of application
-  - utils.ts: some until of application
+  - utils.ts: some untils of application
 
 # How it work
 ## 1. Automation webhook
