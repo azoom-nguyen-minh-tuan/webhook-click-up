@@ -4,7 +4,7 @@ import {
   TaskDto,
 } from './dto/request/TaskAutomationRequest.dto'
 import { toCamelCase, validateWebhookRequest } from './utils'
-import { getTask, setTagToTask } from './endpoint'
+import { getTask, setCustomFieldToTask, setTagToTask } from './endpoint'
 import {
   HitoryStatusItemDto,
   ManualWebhookRequestDto,
@@ -17,11 +17,23 @@ import { TAG_NAME } from './constants'
 export const ClickUpTaskAutomationWebhook = functions.https.onRequest(
   async (request, response) => {
     const body: ClickUpTaskTriggerRequestDto = toCamelCase(request.body)
+    functions.logger.info({ tuan: body.payload.dueDate })
+    console.log(body.payload)
     const isOnTime: boolean = body.payload.dueDate
       ? Date.now() <= body.payload.dueDate
       : true
-    const tagName = isOnTime ? TAG_NAME.AHEAD_OF_SCHEDULE: TAG_NAME.BEHIND_SCHEDULE
+    const tagName = isOnTime
+      ? TAG_NAME.AHEAD_OF_SCHEDULE
+      : TAG_NAME.BEHIND_SCHEDULE
     await setTagToTask(body.payload.id, tagName)
+    await Promise.all([
+      setTagToTask(body.payload.id, tagName),
+      setCustomFieldToTask<number>(
+        body.payload.id,
+        process.env.COMPLETTION_PERCENTTAGE_BEFORE_DEADLINE_ID!,
+        90
+      ),
+    ])
     response.send('Automation webhook')
   }
 )
@@ -45,7 +57,9 @@ export const ClickUpTaskManualWebhook = functions.https.onRequest(
     const isOnTime: boolean = taskDetail.dueDate
       ? Date.now() <= taskDetail.dueDate
       : true
-    const tagName = isOnTime ? TAG_NAME.AHEAD_OF_SCHEDULE: TAG_NAME.BEHIND_SCHEDULE
+    const tagName = isOnTime
+      ? TAG_NAME.AHEAD_OF_SCHEDULE
+      : TAG_NAME.BEHIND_SCHEDULE
     functions.logger.info(taskDetail.id)
     await setTagToTask(taskDetail.id, tagName)
     response.send('Manual webhook')

@@ -24,3 +24,18 @@ export async function getTask(taskId: string): Promise<TaskDto> {
   const bodyResponse = await res.json()
   return toCamelCase(bodyResponse)
 }
+
+export async function setCustomFieldToTask<T>(
+  taskId: string,
+  customFieldId: string,
+  value: T
+) {
+  const url = `${_endPointClickUp}/task/${taskId}/field/${customFieldId}`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: _defautHeader,
+    body: JSON.stringify({ value }),
+  })
+  const bodyResponse = await res.json()
+  return toCamelCase(bodyResponse)
+}
